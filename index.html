@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Idade</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -23,9 +24,9 @@
                 <div class="campo-form">
                     <label for="dia-nascimento">Data de nascimento:</label>
                     <div class="grupo-data-nascimento">
-                        <input type="number" name="campo-dia-nascimento" id="dia-nascimento" placeholder="Dia">
-                        <input type="number" name="campo-mês-nascimento" id="mes-nascimento" placeholder="Mês">
-                        <input type="number" name="campo-ano-nascimento" id="ano-nascimento" placeholder="Ano">
+                        <input required type="number" name="campo-dia-nascimento" id="dia-nascimento" placeholder="Dia">
+                        <input required type="number" name="campo-mês-nascimento" id="mes-nascimento" placeholder="Mês">
+                        <input required type="number" name="campo-ano-nascimento" id="ano-nascimento" placeholder="Ano">
                     </div>
                 </div>                
 
@@ -48,16 +49,10 @@
                         <th>Faixa etária</th>
                     </tr>
                 </thead>
-                <tbody id="corpo-tabela">
-                    <tr>
-                        <td data-cell="nome">Thiago Nascimento</td>
-                        <td data-cell="data de nascimento">28/06/1998</td>
-                        <td data-cell="idade">25 anos</td>
-                        <td data-cell="faixa etária">21.1</td>
-                    </tr>                    
+                <tbody id="corpo-tabela">               
                 </tbody>
             </table>
-            <button class="botao-tabela">Limpar Registros</button>
+            <button class="botao-tabela"  onclick="deletarRegistros()">Limpar Registros</button>
         </section>
     </main>
 </body>

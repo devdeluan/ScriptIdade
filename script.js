@@ -21,15 +21,15 @@ function calcular(event) {
     let usuario = receberValores()
 
     // passo 2
-    let idadeCalculada = calcularIdade(usuario.ano, usuario.atual)
+    let calculoIdade = calcularIdade (usuario.ano, usuario.dataHoraAtual)
     
     // passo 3
-    let classificacaoImc = classificarImc (imcCalculado)
+    let classificacaoIdade = classificarIdade (calculoIdade)
   
-    console.log (classificacaoImc)
+    console.log (classificacaoIdade)
   
     // passo 4
-    usuario = organizarDados (usuario, imcCalculado, classificacaoImc)
+    usuario = organizarDados (usuario, calculoIdade, classificacaoIdade)
   
     // passo 5
     cadastrarUsuario(usuario)
@@ -42,58 +42,59 @@ function calcular(event) {
   
   function receberValores() {
     let nomeRecebido = document.getElementById ("nome").value.trim()
+    let diaRecebido = document.getElementById ("dia-nascimento").value
+    let mesRecebido = document.getElementById ("mes-nascimento").value
     let anoRecebido = document.getElementById ("ano-nascimento").value
-    let anoAtual = dataHoraAtual
-  
+
     let dadosUsuario = {
       nome: nomeRecebido,
+      dia: diaRecebido,
+      mes: mesRecebido,
       ano: anoRecebido,
-      atual: anoAtual
     }
   console.log (dadosUsuario)
   
   return dadosUsuario
   }
-  
-  function calcularIdade(ano, dataHoraAtual) {
-    let resultado = ano - dataHoraAtual
-  
-    console.log (resultado.toFixed(1))
-  
-    return resultado
+
+  function calcularIdade(ano, mes, dia) {
+
+  //  let calculoIdade  = new Date().getFullYear() - ano;
+  //  let calculoMes = new Date().getMonth() - mes;
+  //  let calculoDia = new Date().getDate() - dia;
+
+    let diaAtual = new Date().getDate()
+    let mesAtual = new Date().getMonth()
+    // let anoAtual = new Date().getDate()
+    let calculoIdade  = new Date().getFullYear() - ano;
+
+    if (mesAtual < mes || diaAtual < dia) {
+    return calculoIdade -- } else {
+      return calculoIdade
+    }
   }
   
-  function classificarIdade(resultado) {
-  
-//   Gerar a faixa etária
-   
-//     Resultado            Faixa
+  function classificarIdade(calculoIdade) {
 
-//     0 à 12              Criança
-//     13 à 17             Adolescente
-//     18 à 65             Adulto
-//     Acima de 65         Idoso 
-   
-
-  if  (resultado <= 12) {
+  if  (calculoIdade <= 12) {
   return 'Criança'
   } 
 
-  else if(resultado >= 13 && resultado <= 17) {
+  else if(calculoIdade >= 13 && calculoIdade <= 17) {
   return 'Adolescente'
   }
 
-  else if(resultado >= 18 && resultado <= 65) {
+  else if(calculoIdade >= 18 && calculoIdade <= 65) {
     return 'Adulto'
   }
 
-  else if(resultado >= 66) {
+  else if(calculoIdade >= 66) {
   return 'Idoso'
   }
 
   }
 
-  function organizarDados (usuario, idadeCalculada, classificarIdade) {
+  function organizarDados (usuario, calculoIdade, classificarIdade) {
     // pegar data e hora
   let dataHoraAtual = new Intl.DateTimeFormat('pt-BR', { timeStyle: 'long', dateStyle: 'short' }).format(Date.now())
   
@@ -103,7 +104,7 @@ function calcular(event) {
   
   let dadosUsuarioAtualizado = {
     ...usuario,
-    resultado: idadeCalculada.toFixed(1),
+    idade: calculoIdade,
     situaçaoIdade: classificarIdade,
     dataCadastro: dataHoraAtual
   }
@@ -165,13 +166,12 @@ function calcular(event) {
     let template = ''
     
     listaUsuarios.forEach(usuario => {
-      template += `<tr>
+      template += `
+      <tr>
       <td data-cell="nome">${usuario.nome}</td>
-      <td data-cell="altura">${usuario.altura}</td>
-      <td data-cell="peso">${usuario.peso}</td>
-      <td data-cell="valor do IMC">${usuario.imc}</td>
-      <td data-cell="classificação do IMC">${usuario.situaçaoImc}</td>
-      <td data-cell="data de cadastro">${usuario.dataCadastro}</td>
+      <td data-cell="data de nascimento">${usuario.dia + "/" + usuario.mes + "/" + usuario.ano}</td>
+      <td data-cell="idade">${usuario.idade}</td>
+      <td data-cell="faixa etária">${usuario.situaçaoIdade}</td>
   </tr>` 
     });
   
