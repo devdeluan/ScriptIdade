@@ -1,31 +1,18 @@
 function calcular(event) {
 
-
     event.preventDefault()
-  
-    console.log ("Executada funçao calcular!!")
-  
-    // passo 1
-    let usuario = receberValores()
 
-    // passo 2
+    console.log ("Executada funçao calcular!!")
+
+    let usuario = receberValores()
     let calculoIdade = calcularIdade (usuario.ano, usuario.anoAtual, usuario.mesAtual, usuario.diaAtual)
-    
-    // passo 3
     let classificacaoIdade = classificarIdade (calculoIdade)
-  
+
     console.log (classificacaoIdade)
-  
-    // passo 4
+
     usuario = organizarDados (usuario, calculoIdade, classificacaoIdade)
-  
-    // passo 5
     cadastrarUsuario(usuario)
-  
-   // Atualizaçao automatica da pagina 
     window.location.reload()
-  
-  
   }
   
   function receberValores() {
@@ -40,62 +27,47 @@ function calcular(event) {
       mes: mesRecebido,
       ano: anoRecebido,
     }
-  // console.log (dadosUsuario)
+  console.log (dadosUsuario)
   
   return dadosUsuario
   }
 
   function calcularIdade(ano, mes, dia) {
 
-  //  let calculoIdade  = new Date().getFullYear() - ano;
-  //  let calculoMes = new Date().getMonth() - mes;
-  //  let calculoDia = new Date().getDate() - dia;
     let dataOk = new Date()
-    let diaAtual = new Date().getDate()
-    let mesAtual = new Date().getMonth()+1
-    let anoAtual = new Date().getFullYear()
-    let calculoIdade  = anoAtual - ano
+    let calculoIdade  = dataOk.getFullYear() - ano
 
-    if (mes > mesAtual) {
-    calculoIdade --
-  } else if (mes > mesAtual && dia > diaAtual)
-  { calculoIdade --
-    }    return calculoIdade
+    if (mes > dataOk.getMonth() || mes >= dataOk.getMonth() && dia > dataOk.getDate())
+  {
+   calculoIdade --
+    }    
+      return calculoIdade
   }
   
+  console.log()
+
   function classificarIdade(calculoIdade) {
 
   if  (calculoIdade <= 12) {
   return 'Criança'
   } 
-
   else if(calculoIdade >= 13 && calculoIdade <= 17) {
   return 'Adolescente'
   }
-
   else if(calculoIdade >= 18 && calculoIdade <= 65) {
     return 'Adulto'
   }
-
   else if(calculoIdade >= 66) {
   return 'Idoso'
   }
-
   }
 
   function organizarDados (usuario, calculoIdade, classificarIdade) {
-    // pegar data e hora
-  let dataHoraAtual = new Intl.DateTimeFormat('pt-BR', { timeStyle: 'long', dateStyle: 'short' }).format(Date.now())
-  
-  console.log(dataHoraAtual)
-  
-  // organizar dados
-  
+
   let dadosUsuarioAtualizado = {
     ...usuario,
     idade: calculoIdade,
     situaçaoIdade: classificarIdade,
-    dataCadastro: dataHoraAtual
   }
   
   return dadosUsuarioAtualizado;
@@ -136,17 +108,13 @@ function calcular(event) {
       </tr>`
     } else {
       // Montar conteudo da tabela...
-  
     montarTabela(listaCarregada)
-  
     }
   
     console.log(listaCarregada)
   }
   
   window.addEventListener('DOMContentLoaded', () => carregarUsuarios())
-  
-  //Passo 7 
   
   function montarTabela(listaUsuarios) {
   
