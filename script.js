@@ -58,8 +58,8 @@ function calcular(event) {
 
     if (mes > mesAtual) {
     calculoIdade --
-  } else if (mes > mesAtual && dia >= diaAtual)
-  {calculoIdade --
+  } else if (mes > mesAtual && dia > diaAtual)
+  { calculoIdade --
     }    return calculoIdade
   }
   
@@ -159,7 +159,7 @@ function calcular(event) {
       <tr>
       <td data-cell="nome">${usuario.nome}</td>
       <td data-cell="data de nascimento">${usuario.dia + "/" + usuario.mes + "/" + usuario.ano}</td>
-      <td data-cell="idade">${usuario.calcularIdade}</td>
+      <td data-cell="idade">${usuario.idade}</td>
       <td data-cell="faixa etária">${usuario.situaçaoIdade}</td>
   </tr>` 
     });
