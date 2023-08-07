@@ -1,15 +1,3 @@
-// alert ("Hello Word!!")
-
-// Algoritmo
-// OK  1. Pegar os valores dos inputs
-// OK  2. Fazer o calculo do IMC -> valorImc
-// Ok  3. Gerar a classificaçao IMC -> classificacaoImc
-// Ok  4. Organizar os dados do usuario para salvar na lista e gerar a data de cadastro
-// Ok  5. inserir o usuario na lista(salvar no localStorage)
-// Ok  6. Funcao para carregar os usuarios(salvos no localStorage) chamar ao carregar a pagina
-// Ok  7.  renderizar o conteudo da tabela com os usuarios cadastrados = mostrar na tela
-// Botao para limpar os registros (localStorage)
-
 function calcular(event) {
 
 
@@ -21,7 +9,7 @@ function calcular(event) {
     let usuario = receberValores()
 
     // passo 2
-    let calculoIdade = calcularIdade (usuario.ano, usuario.dataHoraAtual)
+    let calculoIdade = calcularIdade (usuario.ano, usuario.anoAtual, usuario.mesAtual, usuario.diaAtual)
     
     // passo 3
     let classificacaoIdade = classificarIdade (calculoIdade)
@@ -52,7 +40,7 @@ function calcular(event) {
       mes: mesRecebido,
       ano: anoRecebido,
     }
-  console.log (dadosUsuario)
+  // console.log (dadosUsuario)
   
   return dadosUsuario
   }
@@ -62,16 +50,17 @@ function calcular(event) {
   //  let calculoIdade  = new Date().getFullYear() - ano;
   //  let calculoMes = new Date().getMonth() - mes;
   //  let calculoDia = new Date().getDate() - dia;
-
+    let dataOk = new Date()
     let diaAtual = new Date().getDate()
-    let mesAtual = new Date().getMonth()
-    // let anoAtual = new Date().getDate()
-    let calculoIdade  = new Date().getFullYear() - ano;
+    let mesAtual = new Date().getMonth()+1
+    let anoAtual = new Date().getFullYear()
+    let calculoIdade  = anoAtual - ano
 
-    if (mesAtual < mes || diaAtual < dia) {
-    return calculoIdade -- } else {
-      return calculoIdade
-    }
+    if (mes > mesAtual) {
+    calculoIdade --
+  } else if (mes > mesAtual && dia >= diaAtual)
+  {calculoIdade --
+    }    return calculoIdade
   }
   
   function classificarIdade(calculoIdade) {
@@ -170,7 +159,7 @@ function calcular(event) {
       <tr>
       <td data-cell="nome">${usuario.nome}</td>
       <td data-cell="data de nascimento">${usuario.dia + "/" + usuario.mes + "/" + usuario.ano}</td>
-      <td data-cell="idade">${usuario.idade}</td>
+      <td data-cell="idade">${usuario.calcularIdade}</td>
       <td data-cell="faixa etária">${usuario.situaçaoIdade}</td>
   </tr>` 
     });
